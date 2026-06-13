@@ -21,5 +21,5 @@
                          "sns_topics":  ""
                      },
     "evidence_dir":  "evidence/aws-execution-20260613-125703",
-    "note":  "CloudFormation-managed resources were deleted in this run. CloudWatch custom metric history can remain queryable for retention, but it is not an active resource."
+    "note":  "CloudFormation管理リソースはこの実行内で削除済みです。CloudWatchカスタムメトリクス履歴は保持期間中に参照できる場合がありますが、稼働中リソースではありません。"
 }

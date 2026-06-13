@@ -1,21 +1,18 @@
 Copyright (c) 2026 Toma1110. All rights reserved.
 
-This repository is provided as companion learning material for the Udemy course
-"AWS CloudWatch/SRE monitoring practical master".
+このリポジトリは、Udemy講座「AWS CloudWatch/SRE監視実践マスター」の受講者向け補助教材です。
 
-Permitted use:
+許可される利用:
 
-- Personal study by course learners.
-- Running the included hands-on exercises in the learner's own AWS account.
-- Modifying files locally for personal practice.
+- 講座受講者による個人学習。
+- 受講者自身のAWSアカウントでのハンズオン実行。
+- 個人練習のためのローカル変更。
 
-Not permitted without written permission:
+書面による許可なく禁止される利用:
 
-- Redistribution or republication of this material.
-- Selling this material or a derivative work.
-- Using this material as part of another course, workshop, corporate training,
-  paid support package, or public tutorial.
-- Removing attribution or representing the material as your own.
+- 本教材の再配布または再公開。
+- 本教材または派生物の販売。
+- 別講座、ワークショップ、企業研修、有償サポート、公開チュートリアルへの組み込み。
+- 著作権表示の削除、または自作教材としての表示。
 
-AWS charges are the responsibility of the person running the exercises. Always
-run the cleanup steps after completing AWS hands-on work.
+AWS利用料は、ハンズオンを実行した利用者の責任です。AWSリソースを作成した後は、必ず教材内のクリーンアップ手順を実行してください。
