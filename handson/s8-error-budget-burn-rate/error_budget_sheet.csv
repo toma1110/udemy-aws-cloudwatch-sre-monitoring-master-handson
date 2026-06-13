@@ -1,0 +1,2 @@
+service,sli,slo_target,total_events,allowed_bad_events,actual_bad_events,remaining_budget,notes
+checkout-api,主要リクエスト成功率,99.9%,1000000,1000,250,750,例

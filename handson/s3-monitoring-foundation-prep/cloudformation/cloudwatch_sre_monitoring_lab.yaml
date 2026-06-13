@@ -1,0 +1,183 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Minimal CloudWatch/SRE monitoring lab for Udemy c002 hands-on.
+
+Parameters:
+  ProjectPrefix:
+    Type: String
+    Default: c002-cw-sre
+    AllowedPattern: '^[a-z0-9-]{3,32}$'
+    Description: Lowercase prefix used for learner-created resources.
+  ServiceName:
+    Type: String
+    Default: checkout-api
+    AllowedPattern: '^[A-Za-z0-9_.-]{3,64}$'
+    Description: Logical sample service name used in metrics and dashboard labels.
+  CustomMetricNamespace:
+    Type: String
+    Default: Udemy/CloudWatchSREHandson
+    Description: Namespace for sample custom metrics sent by the learner.
+  NotificationEmail:
+    Type: String
+    Default: ''
+    Description: Optional email address for SNS subscription. Leave empty to skip email subscription.
+
+Conditions:
+  HasNotificationEmail: !Not [!Equals [!Ref NotificationEmail, '']]
+
+Resources:
+  LabLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/${ProjectPrefix}/application'
+      RetentionInDays: 3
+      Tags:
+        - Key: Course
+          Value: c002
+        - Key: Purpose
+          Value: udemy-handson
+
+  LabAlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub '${ProjectPrefix}-alerts'
+      Tags:
+        - Key: Course
+          Value: c002
+        - Key: Purpose
+          Value: udemy-handson
+
+  LabAlertEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasNotificationEmail
+    Properties:
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+      TopicArn: !Ref LabAlertTopic
+
+  HighErrorRateAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub '${ProjectPrefix}-${ServiceName}-high-errors'
+      AlarmDescription: Sample alarm for high error count in the learner monitoring lab.
+      Namespace: !Ref CustomMetricNamespace
+      MetricName: ErrorCount
+      Dimensions:
+        - Name: Service
+          Value: !Ref ServiceName
+      Statistic: Sum
+      Period: 60
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref LabAlertTopic
+      OKActions:
+        - !Ref LabAlertTopic
+
+  HighLatencyAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub '${ProjectPrefix}-${ServiceName}-high-latency'
+      AlarmDescription: Sample alarm for high p95 latency in the learner monitoring lab.
+      Namespace: !Ref CustomMetricNamespace
+      MetricName: LatencyP95
+      Dimensions:
+        - Name: Service
+          Value: !Ref ServiceName
+      Statistic: Average
+      Period: 60
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 800
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref LabAlertTopic
+      OKActions:
+        - !Ref LabAlertTopic
+
+  CompositeServiceAlarm:
+    Type: AWS::CloudWatch::CompositeAlarm
+    Properties:
+      AlarmName: !Sub '${ProjectPrefix}-${ServiceName}-service-impact'
+      AlarmDescription: Combines high error and high latency signals for noise reduction practice.
+      AlarmRule: !Sub 'ALARM("${HighErrorRateAlarm}") OR ALARM("${HighLatencyAlarm}")'
+      AlarmActions:
+        - !Ref LabAlertTopic
+
+  LabDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub '${ProjectPrefix}-${ServiceName}-overview'
+      DashboardBody: !Sub |
+        {
+          "widgets": [
+            {
+              "type": "text",
+              "x": 0,
+              "y": 0,
+              "width": 24,
+              "height": 3,
+              "properties": {
+                "markdown": "# ${ServiceName} monitoring lab\\nUse this dashboard to compare request volume, errors, and latency before opening alarms and runbooks."
+              }
+            },
+            {
+              "type": "metric",
+              "x": 0,
+              "y": 3,
+              "width": 12,
+              "height": 6,
+              "properties": {
+                "title": "Request and error count",
+                "view": "timeSeries",
+                "region": "${AWS::Region}",
+                "stat": "Sum",
+                "period": 60,
+                "metrics": [
+                  [ "${CustomMetricNamespace}", "RequestCount", "Service", "${ServiceName}" ],
+                  [ ".", "ErrorCount", ".", "." ]
+                ]
+              }
+            },
+            {
+              "type": "metric",
+              "x": 12,
+              "y": 3,
+              "width": 12,
+              "height": 6,
+              "properties": {
+                "title": "p95 latency",
+                "view": "timeSeries",
+                "region": "${AWS::Region}",
+                "stat": "Average",
+                "period": 60,
+                "metrics": [
+                  [ "${CustomMetricNamespace}", "LatencyP95", "Service", "${ServiceName}" ]
+                ]
+              }
+            }
+          ]
+        }
+
+Outputs:
+  LogGroupName:
+    Description: CloudWatch Logs group for sample application events.
+    Value: !Ref LabLogGroup
+  AlertTopicArn:
+    Description: SNS topic used by sample alarms.
+    Value: !Ref LabAlertTopic
+  DashboardName:
+    Description: CloudWatch dashboard name.
+    Value: !Ref LabDashboard
+  HighErrorRateAlarmName:
+    Description: Error count alarm name.
+    Value: !Ref HighErrorRateAlarm
+  HighLatencyAlarmName:
+    Description: Latency alarm name.
+    Value: !Ref HighLatencyAlarm
+  CompositeServiceAlarmName:
+    Description: Composite alarm name.
+    Value: !Ref CompositeServiceAlarm

@@ -1,0 +1,21 @@
+Copyright (c) 2026 Toma1110. All rights reserved.
+
+This repository is provided as companion learning material for the Udemy course
+"AWS CloudWatch/SRE monitoring practical master".
+
+Permitted use:
+
+- Personal study by course learners.
+- Running the included hands-on exercises in the learner's own AWS account.
+- Modifying files locally for personal practice.
+
+Not permitted without written permission:
+
+- Redistribution or republication of this material.
+- Selling this material or a derivative work.
+- Using this material as part of another course, workshop, corporate training,
+  paid support package, or public tutorial.
+- Removing attribution or representing the material as your own.
+
+AWS charges are the responsibility of the person running the exercises. Always
+run the cleanup steps after completing AWS hands-on work.

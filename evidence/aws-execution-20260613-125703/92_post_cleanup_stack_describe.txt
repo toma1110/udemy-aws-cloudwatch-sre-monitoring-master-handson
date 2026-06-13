@@ -1,0 +1,11 @@
+Command: aws cloudformation describe-stacks --region ap-northeast-1 --stack-name c002-cw-sre-0613125703 --output json
+ExitCode: 254
+aws : 
+At line:2 char:157
++ ... xt'; $out = aws cloudformation describe-stacks --region ap-northeast- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id c002-cw-sre-0613125703 doe
+s not exist

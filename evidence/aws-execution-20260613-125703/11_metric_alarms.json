@@ -1,0 +1,16 @@
+[
+    {
+        "AlarmName": "c002-cw-0613125703-checkout-api-high-errors",
+        "StateValue": "ALARM",
+        "MetricName": "ErrorCount",
+        "Namespace": "Udemy/CloudWatchSREHandson",
+        "Threshold": 3.0
+    },
+    {
+        "AlarmName": "c002-cw-0613125703-checkout-api-high-latency",
+        "StateValue": "ALARM",
+        "MetricName": "LatencyP95",
+        "Namespace": "Udemy/CloudWatchSREHandson",
+        "Threshold": 800.0
+    }
+]

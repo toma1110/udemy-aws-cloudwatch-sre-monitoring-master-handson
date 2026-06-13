@@ -1,0 +1,7 @@
+[
+    {
+        "AlarmName": "c002-cw-0613125703-checkout-api-service-impact",
+        "StateValue": "ALARM",
+        "AlarmRule": "ALARM(\"c002-cw-0613125703-checkout-api-high-errors\") OR ALARM(\"c002-cw-0613125703-checkout-api-high-latency\")"
+    }
+]

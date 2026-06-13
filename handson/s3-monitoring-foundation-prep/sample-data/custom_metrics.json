@@ -1,0 +1,35 @@
+[
+  {
+    "MetricName": "RequestCount",
+    "Dimensions": [
+      {
+        "Name": "Service",
+        "Value": "checkout-api"
+      }
+    ],
+    "Value": 120,
+    "Unit": "Count"
+  },
+  {
+    "MetricName": "ErrorCount",
+    "Dimensions": [
+      {
+        "Name": "Service",
+        "Value": "checkout-api"
+      }
+    ],
+    "Value": 5,
+    "Unit": "Count"
+  },
+  {
+    "MetricName": "LatencyP95",
+    "Dimensions": [
+      {
+        "Name": "Service",
+        "Value": "checkout-api"
+      }
+    ],
+    "Value": 950,
+    "Unit": "Milliseconds"
+  }
+]

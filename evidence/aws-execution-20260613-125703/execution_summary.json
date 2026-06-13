@@ -1,0 +1,25 @@
+{
+    "issue":  "https://github.com/toma1110/udemy3/issues/32",
+    "course":  "c002-aws-cloudwatch-sre-monitoring-master-course",
+    "run_id":  "20260613-125703",
+    "region":  "ap-northeast-1",
+    "stack_name":  "c002-cw-sre-0613125703",
+    "project_prefix":  "c002-cw-0613125703",
+    "service_name":  "checkout-api",
+    "namespace":  "Udemy/CloudWatchSREHandson",
+    "log_group_name":  "/c002-cw-0613125703/application",
+    "log_stream_name":  "phase4-0613125703",
+    "dashboard_name":  "c002-cw-0613125703-checkout-api-overview",
+    "deploy_status":  "completed",
+    "cleanup_status":  "stack-delete-complete",
+    "post_cleanup":  {
+                         "stack_describe_found":  false,
+                         "log_groups":  "",
+                         "dashboards":  "",
+                         "metric_alarms":  "",
+                         "composite_alarms":  "",
+                         "sns_topics":  ""
+                     },
+    "evidence_dir":  "evidence/aws-execution-20260613-125703",
+    "note":  "CloudFormation-managed resources were deleted in this run. CloudWatch custom metric history can remain queryable for retention, but it is not an active resource."
+}
