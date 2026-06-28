@@ -1,0 +1,1 @@
+aws-cli/2.35.7 Python/3.14.5 Linux/6.1.172-216.329.amzn2023.x86_64 exec-env/CloudShell exe/x86_64.amzn.2023

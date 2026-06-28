@@ -1,0 +1,12 @@
+[
+    {
+        "Name": "c002-cw-20260628-030837-checkout-api-high-errors",
+        "State": "INSUFFICIENT_DATA",
+        "Reason": "Unchecked: Initial alarm creation"
+    },
+    {
+        "Name": "c002-cw-20260628-030837-checkout-api-high-latency",
+        "State": "INSUFFICIENT_DATA",
+        "Reason": "Unchecked: Initial alarm creation"
+    }
+]

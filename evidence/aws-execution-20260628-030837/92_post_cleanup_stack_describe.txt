@@ -1,0 +1,4 @@
+$ aws cloudformation describe-stacks --stack-name c002-cw-sre-20260628-030837
+
+aws: [ERROR]: An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id c002-cw-sre-20260628-030837 does not exist
+EXIT_CODE=254

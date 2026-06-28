@@ -1,0 +1,6 @@
+{
+  "UserId": "REDACTED",
+  "Account": "REDACTED",
+  "Arn": "REDACTED",
+  "Connectivity": "sts get-caller-identity succeeded in AWS CloudShell"
+}

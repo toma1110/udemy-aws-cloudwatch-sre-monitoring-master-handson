@@ -1,0 +1,32 @@
+[
+    {
+        "OutputKey": "DashboardName",
+        "OutputValue": "c002-cw-20260628-030837-checkout-api-overview",
+        "Description": "CloudWatch dashboard name."
+    },
+    {
+        "OutputKey": "HighLatencyAlarmName",
+        "OutputValue": "c002-cw-20260628-030837-checkout-api-high-latency",
+        "Description": "Latency alarm name."
+    },
+    {
+        "OutputKey": "CompositeServiceAlarmName",
+        "OutputValue": "c002-cw-20260628-030837-checkout-api-service-impact",
+        "Description": "Composite alarm name."
+    },
+    {
+        "OutputKey": "AlertTopicArn",
+        "OutputValue": "arn:aws:sns:ap-northeast-1:ACCOUNT_ID_REDACTED:c002-cw-20260628-030837-alerts",
+        "Description": "SNS topic used by sample alarms."
+    },
+    {
+        "OutputKey": "LogGroupName",
+        "OutputValue": "/c002-cw-20260628-030837/application",
+        "Description": "CloudWatch Logs group for sample application events."
+    },
+    {
+        "OutputKey": "HighErrorRateAlarmName",
+        "OutputValue": "c002-cw-20260628-030837-checkout-api-high-errors",
+        "Description": "Error count alarm name."
+    }
+]

@@ -1,0 +1,29 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "NotificationEmail",
+            "DefaultValue": "",
+            "NoEcho": false,
+            "Description": "Optional email address for SNS subscription. Leave empty to skip email subscription."
+        },
+        {
+            "ParameterKey": "CustomMetricNamespace",
+            "DefaultValue": "Udemy/CloudWatchSREHandson",
+            "NoEcho": false,
+            "Description": "Namespace for sample custom metrics sent by the learner."
+        },
+        {
+            "ParameterKey": "ServiceName",
+            "DefaultValue": "checkout-api",
+            "NoEcho": false,
+            "Description": "Logical sample service name used in metrics and dashboard labels."
+        },
+        {
+            "ParameterKey": "ProjectPrefix",
+            "DefaultValue": "c002-cw-sre",
+            "NoEcho": false,
+            "Description": "Lowercase prefix used for learner-created resources."
+        }
+    ],
+    "Description": "Minimal CloudWatch/SRE monitoring lab for Udemy c002 hands-on."
+}
