@@ -10,8 +10,8 @@
 
 ## ファイル
 
-- `error_budget_sheet.csv`: エラーバジェット計算シート
-- `burn_rate_alarm_design.md`: バーンレート通知設計シート
+- [`error_budget_sheet.csv`](error_budget_sheet.csv): エラーバジェット計算シート
+- [`burn_rate_alarm_design.md`](burn_rate_alarm_design.md): バーンレート通知設計シート
 
 ## 注意
 
