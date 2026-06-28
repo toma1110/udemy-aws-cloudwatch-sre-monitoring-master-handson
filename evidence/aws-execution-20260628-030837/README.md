@@ -1,8 +1,6 @@
 # AWS execution evidence: 20260628-030837
 
-Issue: https://github.com/toma1110/udemy3/issues/81
-
-This evidence was recreated from AWS CloudShell in region `ap-northeast-1` for the c002 CloudShell-standardized handson procedure.
+This evidence was recreated from AWS CloudShell in region `ap-northeast-1` for the CloudShell-standardized handson procedure.
 
 ## Scope
 
