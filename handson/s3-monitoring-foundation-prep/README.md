@@ -13,7 +13,7 @@
 | Path | Role |
 | --- | --- |
 | [`cloudformation/cloudwatch_sre_monitoring_lab.yaml`](cloudformation/cloudwatch_sre_monitoring_lab.yaml) | Log Group、SNS Topic、Metric Alarm、Composite Alarm、Dashboardを作る教材用CloudFormationテンプレート |
-| [`setup_commands.md`](setup_commands.md) | 作成前確認、CloudFormation deploy、サンプルログ投入、Custom Metrics投入、Alarm確認のPowerShell手順 |
+| [`setup_commands.md`](setup_commands.md) | 作成前確認、CloudFormation deploy、サンプルログ投入、Custom Metrics投入、Alarm確認のCloudShell手順 |
 | [`sample-data/custom_metrics.json`](sample-data/custom_metrics.json) | `aws cloudwatch put-metric-data` で投入するサンプルメトリクス |
 | [`logs_insights_queries.md`](logs_insights_queries.md) | ERROR抽出、parse、stats、Runbook用集計のLogs Insightsクエリ |
 | [`validation_checklist.md`](validation_checklist.md) | Dashboard、Alarm、Logs Insightsの初期状態チェック表 |
@@ -33,7 +33,7 @@
 ## Standard Flow
 
 1. READMEを通して読む
-2. リージョン、プロファイル、Stack名、Prefixを決める
+2. AWS CloudShellを開き、リージョン、Stack名、Prefixを決める
 3. 作成物一覧を確認する
 4. [`setup_commands.md`](setup_commands.md) の作成前確認を実行する
 5. CloudFormationテンプレートをvalidateする

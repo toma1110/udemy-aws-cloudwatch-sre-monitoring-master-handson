@@ -1,24 +1,26 @@
 # クリーンアップ手順
 
-AWSリソースを作成した場合は、演習後に必ず削除します。
+AWSリソースを作成した場合は、演習後に必ず削除します。この手順はAWS CloudShellで実行する想定です。
 
 ## 変数
 
-```powershell
-Set-Location .\courses\c002-aws-cloudwatch-sre-monitoring-master-course\handson\s3-monitoring-foundation-prep
+```bash
+cd ~/udemy-aws-cloudwatch-sre-monitoring-master-handson/handson/s3-monitoring-foundation-prep
 
-$env:AWS_REGION = "ap-northeast-1"
-$StackName = "c002-cw-sre-handson"
-$ProjectPrefix = "c002-cw-sre"
-$ServiceName = "checkout-api"
+export AWS_REGION="ap-northeast-1"
+export AWS_DEFAULT_REGION="$AWS_REGION"
+
+STACK_NAME="c002-cw-sre-handson"
+PROJECT_PREFIX="c002-cw-sre"
+SERVICE_NAME="checkout-api"
 ```
 
 ## 削除
 
-```powershell
-aws cloudformation delete-stack --stack-name $StackName
+```bash
+aws cloudformation delete-stack --stack-name "$STACK_NAME"
 
-aws cloudformation wait stack-delete-complete --stack-name $StackName
+aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
 ```
 
 期待結果:
@@ -28,38 +30,38 @@ aws cloudformation wait stack-delete-complete --stack-name $StackName
 
 ## 削除後確認
 
-```powershell
-aws cloudformation describe-stacks --stack-name $StackName
+```bash
+aws cloudformation describe-stacks --stack-name "$STACK_NAME"
 ```
 
 期待結果:
 
 - Stackが見つからないエラーになる
 
-```powershell
-aws logs describe-log-groups `
-  --log-group-name-prefix "/$ProjectPrefix/" `
-  --query "logGroups[].logGroupName" `
+```bash
+aws logs describe-log-groups \
+  --log-group-name-prefix "/$PROJECT_PREFIX/" \
+  --query "logGroups[].logGroupName" \
   --output table
 
-aws cloudwatch list-dashboards `
-  --dashboard-name-prefix "$ProjectPrefix" `
-  --query "DashboardEntries[].DashboardName" `
+aws cloudwatch list-dashboards \
+  --dashboard-name-prefix "$PROJECT_PREFIX" \
+  --query "DashboardEntries[].DashboardName" \
   --output table
 
-aws cloudwatch describe-alarms `
-  --alarm-name-prefix "$ProjectPrefix-$ServiceName" `
-  --query "MetricAlarms[].AlarmName" `
+aws cloudwatch describe-alarms \
+  --alarm-name-prefix "$PROJECT_PREFIX-$SERVICE_NAME" \
+  --query "MetricAlarms[].AlarmName" \
   --output table
 
-aws cloudwatch describe-alarms `
-  --alarm-types CompositeAlarm `
-  --alarm-name-prefix "$ProjectPrefix-$ServiceName" `
-  --query "CompositeAlarms[].AlarmName" `
+aws cloudwatch describe-alarms \
+  --alarm-types CompositeAlarm \
+  --alarm-name-prefix "$PROJECT_PREFIX-$SERVICE_NAME" \
+  --query "CompositeAlarms[].AlarmName" \
   --output table
 
-aws sns list-topics `
-  --query "Topics[?contains(TopicArn, '$ProjectPrefix-alerts')].TopicArn" `
+aws sns list-topics \
+  --query "Topics[?contains(TopicArn, '$PROJECT_PREFIX-alerts')].TopicArn" \
   --output table
 ```
 

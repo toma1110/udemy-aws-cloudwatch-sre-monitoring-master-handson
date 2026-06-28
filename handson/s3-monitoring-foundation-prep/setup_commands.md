@@ -1,28 +1,43 @@
 # Section 3 実行コマンド集
 
-この手順は教材用AWSアカウントで実行する想定です。本番環境では実行しないでください。
+この手順は、AWS CloudShellで実行する想定です。CloudShellを使うことで、AWS CLIや認証情報のローカル環境差異を減らせます。本番環境や会社アカウントでは実行しないでください。
+
+## 事前準備
+
+AWS CloudShellを開き、教材リポジトリを取得して対象ディレクトリへ移動します。
+
+```bash
+git clone https://github.com/toma1110/udemy-aws-cloudwatch-sre-monitoring-master-handson.git
+cd udemy-aws-cloudwatch-sre-monitoring-master-handson/handson/s3-monitoring-foundation-prep
+```
+
+すでに取得済みの場合は、最新化してから移動します。
+
+```bash
+cd ~/udemy-aws-cloudwatch-sre-monitoring-master-handson
+git pull
+cd handson/s3-monitoring-foundation-prep
+```
 
 ## 事前変数
 
-PowerShell:
+```bash
+export AWS_REGION="ap-northeast-1"
+export AWS_DEFAULT_REGION="$AWS_REGION"
 
-```powershell
-Set-Location .\courses\c002-aws-cloudwatch-sre-monitoring-master-course\handson\s3-monitoring-foundation-prep
-
-$env:AWS_REGION = "ap-northeast-1"
-$StackName = "c002-cw-sre-handson"
-$ProjectPrefix = "c002-cw-sre"
-$ServiceName = "checkout-api"
-$MetricNamespace = "Udemy/CloudWatchSREHandson"
-$Template = ".\cloudformation\cloudwatch_sre_monitoring_lab.yaml"
+STACK_NAME="c002-cw-sre-handson"
+PROJECT_PREFIX="c002-cw-sre"
+SERVICE_NAME="checkout-api"
+METRIC_NAMESPACE="Udemy/CloudWatchSREHandson"
+TEMPLATE="cloudformation/cloudwatch_sre_monitoring_lab.yaml"
 ```
 
 ## 作成前確認
 
-```powershell
+```bash
 aws sts get-caller-identity
 aws configure get region
-aws cloudformation validate-template --template-body "file://$Template"
+aws cloudformation validate-template --template-body "file://$TEMPLATE"
 ```
 
 期待結果:
@@ -35,23 +50,30 @@ aws cloudformation validate-template --template-body "file://$Template"
 
 メール通知を使わない場合:
 
-```powershell
-aws cloudformation deploy `
-  --stack-name $StackName `
-  --template-file $Template `
-  --parameter-overrides ProjectPrefix=$ProjectPrefix ServiceName=$ServiceName CustomMetricNamespace=$MetricNamespace `
+```bash
+aws cloudformation deploy \
+  --stack-name "$STACK_NAME" \
+  --template-file "$TEMPLATE" \
+  --parameter-overrides \
+    ProjectPrefix="$PROJECT_PREFIX" \
+    ServiceName="$SERVICE_NAME" \
+    CustomMetricNamespace="$METRIC_NAMESPACE" \
   --tags Course=c002 Purpose=udemy-handson
 ```
 
 メール通知を使う場合:
 
-```powershell
-$NotificationEmail = "your-email@example.com"
+```bash
+NOTIFICATION_EMAIL="your-email@example.com"
 
-aws cloudformation deploy `
-  --stack-name $StackName `
-  --template-file $Template `
-  --parameter-overrides ProjectPrefix=$ProjectPrefix ServiceName=$ServiceName CustomMetricNamespace=$MetricNamespace NotificationEmail=$NotificationEmail `
+aws cloudformation deploy \
+  --stack-name "$STACK_NAME" \
+  --template-file "$TEMPLATE" \
+  --parameter-overrides \
+    ProjectPrefix="$PROJECT_PREFIX" \
+    ServiceName="$SERVICE_NAME" \
+    CustomMetricNamespace="$METRIC_NAMESPACE" \
+    NotificationEmail="$NOTIFICATION_EMAIL" \
   --tags Course=c002 Purpose=udemy-handson
 ```
 
@@ -62,10 +84,10 @@ aws cloudformation deploy `
 
 ## 出力確認
 
-```powershell
-aws cloudformation describe-stacks `
-  --stack-name $StackName `
-  --query "Stacks[0].Outputs" `
+```bash
+aws cloudformation describe-stacks \
+  --stack-name "$STACK_NAME" \
+  --query "Stacks[0].Outputs" \
   --output table
 ```
 
@@ -80,37 +102,36 @@ aws cloudformation describe-stacks `
 
 ## サンプルログ投入
 
-```powershell
-$LogGroupName = "/$ProjectPrefix/application"
-$LogStreamName = "sample-run-$(Get-Date -Format yyyyMMddHHmmss)"
+```bash
+LOG_GROUP_NAME="/$PROJECT_PREFIX/application"
+LOG_STREAM_NAME="sample-run-$(date +%Y%m%d%H%M%S)"
 
-aws logs create-log-stream `
-  --log-group-name $LogGroupName `
-  --log-stream-name $LogStreamName
+aws logs create-log-stream \
+  --log-group-name "$LOG_GROUP_NAME" \
+  --log-stream-name "$LOG_STREAM_NAME"
 
-$now = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
-$events = @(
-  @{
-    timestamp = $now - 30000
-    message = '{"level":"INFO","service":"checkout-api","path":"/checkout","status":200,"latency_ms":180,"request_id":"req-001"}'
+NOW_MS=$(date +%s%3N)
+cat > /tmp/c002-cw-sre-log-events.json <<JSON
+[
+  {
+    "timestamp": $((NOW_MS - 30000)),
+    "message": "{\"level\":\"INFO\",\"service\":\"checkout-api\",\"path\":\"/checkout\",\"status\":200,\"latency_ms\":180,\"request_id\":\"req-001\"}"
   },
-  @{
-    timestamp = $now - 20000
-    message = '{"level":"ERROR","service":"checkout-api","path":"/checkout","status":500,"latency_ms":940,"request_id":"req-002","error":"payment-timeout"}'
+  {
+    "timestamp": $((NOW_MS - 20000)),
+    "message": "{\"level\":\"ERROR\",\"service\":\"checkout-api\",\"path\":\"/checkout\",\"status\":500,\"latency_ms\":940,\"request_id\":\"req-002\",\"error\":\"payment-timeout\"}"
   },
-  @{
-    timestamp = $now - 10000
-    message = '{"level":"ERROR","service":"checkout-api","path":"/checkout","status":502,"latency_ms":1200,"request_id":"req-003","error":"upstream-bad-gateway"}'
+  {
+    "timestamp": $((NOW_MS - 10000)),
+    "message": "{\"level\":\"ERROR\",\"service\":\"checkout-api\",\"path\":\"/checkout\",\"status\":502,\"latency_ms\":1200,\"request_id\":\"req-003\",\"error\":\"upstream-bad-gateway\"}"
   }
-)
+]
+JSON
 
-$tmpEvents = Join-Path $env:TEMP "c002-cw-sre-log-events.json"
-[System.IO.File]::WriteAllText($tmpEvents, ($events | ConvertTo-Json -Depth 4))
-
-aws logs put-log-events `
-  --log-group-name $LogGroupName `
-  --log-stream-name $LogStreamName `
-  --log-events "file://$tmpEvents"
+aws logs put-log-events \
+  --log-group-name "$LOG_GROUP_NAME" \
+  --log-stream-name "$LOG_STREAM_NAME" \
+  --log-events file:///tmp/c002-cw-sre-log-events.json
 ```
 
 期待結果:
@@ -120,10 +141,10 @@ aws logs put-log-events `
 
 ## サンプルメトリクス投入
 
-```powershell
-aws cloudwatch put-metric-data `
-  --namespace $MetricNamespace `
-  --metric-data file://.\sample-data\custom_metrics.json
+```bash
+aws cloudwatch put-metric-data \
+  --namespace "$METRIC_NAMESPACE" \
+  --metric-data file://sample-data/custom_metrics.json
 ```
 
 期待結果:
@@ -133,16 +154,16 @@ aws cloudwatch put-metric-data `
 
 ## 初期状態確認
 
-```powershell
-aws cloudwatch describe-alarms `
-  --alarm-name-prefix "$ProjectPrefix-$ServiceName" `
-  --query "MetricAlarms[].{Name:AlarmName,State:StateValue,Reason:StateReason}" `
+```bash
+aws cloudwatch describe-alarms \
+  --alarm-name-prefix "$PROJECT_PREFIX-$SERVICE_NAME" \
+  --query "MetricAlarms[].{Name:AlarmName,State:StateValue,Reason:StateReason}" \
   --output table
 
-aws cloudwatch describe-alarms `
-  --alarm-types CompositeAlarm `
-  --alarm-name-prefix "$ProjectPrefix-$ServiceName" `
-  --query "CompositeAlarms[].{Name:AlarmName,State:StateValue,Rule:AlarmRule}" `
+aws cloudwatch describe-alarms \
+  --alarm-types CompositeAlarm \
+  --alarm-name-prefix "$PROJECT_PREFIX-$SERVICE_NAME" \
+  --query "CompositeAlarms[].{Name:AlarmName,State:StateValue,Rule:AlarmRule}" \
   --output table
 ```
 
@@ -153,5 +174,5 @@ aws cloudwatch describe-alarms `
 
 ## 参照したAWS公式ドキュメント
 
-- CloudFormation CloudWatch snippets: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudwatch.html
-- CloudWatch Logs log groups and streams: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html
+- [CloudFormation CloudWatch snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudwatch.html)
+- [CloudWatch Logs log groups and streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html)
