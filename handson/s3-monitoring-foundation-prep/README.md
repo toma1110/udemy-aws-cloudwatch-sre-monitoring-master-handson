@@ -4,7 +4,7 @@
 
 ## Purpose
 
-後続のMetrics、Logs、Alarm、Runbook、総合演習演習に入る前に、教材環境の作成物、確認順序、削除条件を先にそろえる。
+後続のMetrics、Logs、Alarm、Runbook、総合演習に入る前に、教材環境の作成物、確認順序、削除条件を先にそろえる。
 
 この章はCloudFormationの文法解説章ではない。CloudFormationは受講者が同じ教材環境を再現しやすくするための手段として扱う。
 
