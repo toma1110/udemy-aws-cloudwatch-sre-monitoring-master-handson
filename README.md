@@ -8,7 +8,7 @@
 - [`handson/s8-error-budget-burn-rate/`](handson/s8-error-budget-burn-rate/): エラーバジェットとBurn Rateの演習
 - [`handson/s9-runbook-first-response/`](handson/s9-runbook-first-response/): 初動Runbook演習
 - [`handson/s10-learning-safety-troubleshooting/`](handson/s10-learning-safety-troubleshooting/): 学習安全性とトラブルシュート演習
-- [`handson/s11-capstone-monitoring-operations/`](handson/s11-capstone-monitoring-operations/): 監視運用の総合演習
+- [`handson/s10-integrated-monitoring-operations/`](handson/s10-integrated-monitoring-operations/): 監視運用の総合演習
 - [`evidence/aws-execution-20260613-125703/`](evidence/aws-execution-20260613-125703/): 教材検証時のAWS実行・削除確認の証跡
 
 ## AWS利用時の注意

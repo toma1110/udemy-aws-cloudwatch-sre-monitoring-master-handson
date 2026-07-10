@@ -1,4 +1,4 @@
-# Section 10 Handson: 統合Capstone監視運用
+# Section 10 Handson: 総合演習監視運用
 
 このディレクトリは、最終カリキュラムのSection 10で使う統合演習テンプレートです。AWSリソースは作成しません。
 
@@ -10,7 +10,7 @@
 
 ## ファイル
 
-- [`capstone_requirements.md`](capstone_requirements.md): Capstone要求定義
+- [`integrated_exercise_requirements.md`](integrated_exercise_requirements.md): 総合演習要求定義
 - [`sli_design_worksheet.md`](sli_design_worksheet.md): エスエルアイ設計ワークシート
 - [`logs_insights_exercise.md`](logs_insights_exercise.md): ログズインサイト演習
 - [`monitoring_design_sheet.md`](monitoring_design_sheet.md): 監視基盤演習

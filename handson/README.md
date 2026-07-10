@@ -29,10 +29,10 @@
 | Section 3 | [`s3-monitoring-foundation-prep/`](s3-monitoring-foundation-prep/) | 統合ハンズオンの準備、作成物、初期確認、削除条件 |
 | Section 8 | [`s8-error-budget-burn-rate/`](s8-error-budget-burn-rate/) | エラーバジェット計算とバーンレート通知設計 |
 | Section 9 | [`s9-runbook-first-response/`](s9-runbook-first-response/) | 5分、15分、30分の初動Runbookとレビュー |
-| Section 10 | [`s11-capstone-monitoring-operations/`](s11-capstone-monitoring-operations/) | Capstone要求定義、SLI、Logs Insights、監視設計、インシデント演習、SLOレビュー |
+| Section 10 | [`s10-integrated-monitoring-operations/`](s10-integrated-monitoring-operations/) | 総合演習要求定義、SLI、Logs Insights、監視設計、インシデント演習、SLOレビュー |
 | 補助教材 | [`s10-learning-safety-troubleshooting/`](s10-learning-safety-troubleshooting/) | 課金安全、AccessDenied、rollback、証跡保存、cleanup確認 |
 
-[`s10-learning-safety-troubleshooting/`](s10-learning-safety-troubleshooting/) と [`s11-capstone-monitoring-operations/`](s11-capstone-monitoring-operations/) は過去の制作時フォルダ名を保持しています。Udemy上の最終対応は上の表で確認します。
+[`s10-learning-safety-troubleshooting/`](s10-learning-safety-troubleshooting/) と [`s10-integrated-monitoring-operations/`](s10-integrated-monitoring-operations/) は過去の制作時フォルダ名を保持しています。Udemy上の最終対応は上の表で確認します。
 
 ## セットアップ
 
@@ -66,20 +66,20 @@
 3. [`s9-runbook-first-response/thirty_minute_decision_runbook.md`](s9-runbook-first-response/thirty_minute_decision_runbook.md) に暫定対応、告知、rollback、継続監視の判断条件を書く。
 4. [`s9-runbook-first-response/runbook_review_sheet.md`](s9-runbook-first-response/runbook_review_sheet.md) で不足手順と自動化候補を整理する。
 
-### Section 10 Capstone
+### Section 10 総合演習
 
-1. [`s11-capstone-monitoring-operations/capstone_requirements.md`](s11-capstone-monitoring-operations/capstone_requirements.md) でサンプルサービスの要求を定義する。
-2. [`s11-capstone-monitoring-operations/sli_design_worksheet.md`](s11-capstone-monitoring-operations/sli_design_worksheet.md) でSLI候補と最初のSLO案を作る。
-3. [`s11-capstone-monitoring-operations/logs_insights_exercise.md`](s11-capstone-monitoring-operations/logs_insights_exercise.md) で調査クエリを整理する。
-4. [`s11-capstone-monitoring-operations/monitoring_design_sheet.md`](s11-capstone-monitoring-operations/monitoring_design_sheet.md) にAlarm、Dashboard、Runbookを統合する。
-5. [`s11-capstone-monitoring-operations/incident_simulation_sheet.md`](s11-capstone-monitoring-operations/incident_simulation_sheet.md) と [`s11-capstone-monitoring-operations/slo_review_minutes.md`](s11-capstone-monitoring-operations/slo_review_minutes.md) で障害調査とレビューを一周する。
+1. [`s10-integrated-monitoring-operations/integrated_exercise_requirements.md`](s10-integrated-monitoring-operations/integrated_exercise_requirements.md) でサンプルサービスの要求を定義する。
+2. [`s10-integrated-monitoring-operations/sli_design_worksheet.md`](s10-integrated-monitoring-operations/sli_design_worksheet.md) でSLI候補と最初のSLO案を作る。
+3. [`s10-integrated-monitoring-operations/logs_insights_exercise.md`](s10-integrated-monitoring-operations/logs_insights_exercise.md) で調査クエリを整理する。
+4. [`s10-integrated-monitoring-operations/monitoring_design_sheet.md`](s10-integrated-monitoring-operations/monitoring_design_sheet.md) にAlarm、Dashboard、Runbookを統合する。
+5. [`s10-integrated-monitoring-operations/incident_simulation_sheet.md`](s10-integrated-monitoring-operations/incident_simulation_sheet.md) と [`s10-integrated-monitoring-operations/slo_review_minutes.md`](s10-integrated-monitoring-operations/slo_review_minutes.md) で障害調査とレビューを一周する。
 
 ## 期待結果
 
 - 作成前に料金、リージョン、権限、削除手順を説明できる
 - Logs Insights、Alarm、Dashboard、Runbook、SLI/SLOを別々ではなく運用の流れとして接続できる
 - アラート後5分、15分、30分で何を見るかをテンプレートに記録できる
-- Capstoneで要求定義からSLOレビューまでの監視運用設計を説明できる
+- 総合演習で要求定義からSLOレビューまでの監視運用設計を説明できる
 
 ## クリーンアップ
 
